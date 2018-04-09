@@ -3,8 +3,8 @@ gant for Project Management Information System.
 Gantt
 ===========
 
-gant是一个准备自己用来方便地使用甘特图管理项目的工具
+gant鏄竴涓噯澶囪嚜宸辩敤鏉ユ柟渚垮湴浣跨敤鐢樼壒鍥剧鐞嗛」鐩殑宸ュ叿
 
-使用了开源项目jquery gant，但是需要额外地引入jquery和jqueryui这两个js
+浣跨敤浜嗗紑婧愰」鐩甹query gant锛屼絾鏄渶瑕侀澶栧湴寮曞叆jquery鍜宩queryui杩欎袱涓猨s
 
-jquery gant的文档可以参考[jquery gant 在线文档](http://roberto.open-lab.com/2012/08/24/jquery-gantt-editor/)
+jquery gant鐨勬枃妗ｅ彲浠ュ弬鑰僛jquery gant 鍦ㄧ嚎鏂囨。](http://roberto.open-lab.com/2012/08/24/jquery-gantt-editor/)
