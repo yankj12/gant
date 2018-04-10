@@ -111,6 +111,7 @@ $(function() {
 
 function getDemoProject(){
   //console.debug("getDemoProject")
+/*
 ret= {"tasks":    [
       {"id": -1, "name": "Gantt editor", "progress": 0, "progressByWorklog": false, "relevance": 0, "type": "", "typeId": "", "description": "", "code": "", "level": 0, "status": "STATUS_ACTIVE", "depends": "", "canWrite": true, "start": 1396994400000, "duration": 20, "end": 1399586399999, "startIsMilestone": false, "endIsMilestone": false, "collapsed": false, "assigs": [], "hasChild": true},
       {"id": -2, "name": "coding", "progress": 0, "progressByWorklog": false, "relevance": 0, "type": "", "typeId": "", "description": "", "code": "", "level": 1, "status": "STATUS_ACTIVE", "depends": "", "canWrite": true, "start": 1396994400000, "duration": 10, "end": 1398203999999, "startIsMilestone": false, "endIsMilestone": false, "collapsed": false, "assigs": [], "hasChild": true},
@@ -133,8 +134,22 @@ ret= {"tasks":    [
       {"id": "tmp_3", "name": "Stakeholder"},
       {"id": "tmp_4", "name": "Customer"}
     ], "canWrite":    true, "canDelete":true, "canWriteOnParent": true, canAdd:true}
+*/
 
-
+	ret= null;
+	$.ajax({
+		type:"GET",
+		async: false,//使用同步的方式,true为异步方式
+		url:"${pageContext.request.contextPath}/getProject",
+		success : function(data){
+			console.log(data);
+			ret = data;
+		},
+		fail:function(){
+			//code here...
+		}
+	});
+	
     //actualize data
     var offset=new Date().getTime()-ret.tasks[0].start;
     for (var i=0;i<ret.tasks.length;i++) {
