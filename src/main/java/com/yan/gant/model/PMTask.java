@@ -7,7 +7,7 @@ import java.util.List;
 public class PMTask implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private Integer id;
+	private String id;
 	private String name;
 	private Integer progress;
 	private boolean progressByWorklog;
@@ -28,10 +28,10 @@ public class PMTask implements Serializable{
 	private boolean collapsed;
 	private List<String> assigs;
 	private boolean hasChild;
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
