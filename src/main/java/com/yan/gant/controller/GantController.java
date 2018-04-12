@@ -14,6 +14,10 @@ import com.yan.gant.model.PMProject;
 import com.yan.gant.model.PMRole;
 import com.yan.gant.model.PMRresource;
 import com.yan.gant.model.PMTask;
+import com.yan.gant.vo.PMProjectVo;
+import com.yan.gant.vo.PMRoleVo;
+import com.yan.gant.vo.PMRresourceVo;
+import com.yan.gant.vo.PMTaskVo;
 
 @Controller
 public class GantController {
@@ -23,12 +27,12 @@ public class GantController {
 	
     @RequestMapping("/getProject")
     @ResponseBody
-    public PMProject getProject(){
-    	PMProject project = null;
+    public PMProjectVo getProject(){
+    	PMProjectVo project = null;
     	
-    	project = new PMProject();
-    	List<PMTask> tasks = new ArrayList<>();
-    	PMTask task1 = new PMTask();
+    	project = new PMProjectVo();
+    	List<PMTaskVo> tasks = new ArrayList<>();
+    	PMTaskVo task1 = new PMTaskVo();
     	task1.setId("-1");
     	task1.setName("Gantt editor");
     	task1.setProgress(0);
@@ -57,15 +61,15 @@ public class GantController {
     	project.setSelectedRow(2);
     	project.setDeletedTaskIds(new ArrayList<>(0));
     	
-    	List<PMRresource> resources = new ArrayList<>();
-    	PMRresource resource1 = new PMRresource();
+    	List<PMRresourceVo> resources = new ArrayList<>();
+    	PMRresourceVo resource1 = new PMRresourceVo();
     	resource1.setId("tmp_1");
     	resource1.setName("Resource 1");
     	resources.add(resource1);
     	project.setResources(resources);
     	
-    	List<PMRole> roles = new ArrayList<>();
-    	PMRole role1 = new PMRole();
+    	List<PMRoleVo> roles = new ArrayList<>();
+    	PMRoleVo role1 = new PMRoleVo();
     	role1.setId("tmp_1");
     	role1.setName("Project Manager");
     	roles.add(role1);
