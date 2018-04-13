@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yan.gant.dao.PMProjectMongoDaoUtil;
 import com.yan.gant.model.PMProject;
 import com.yan.gant.model.PMProjectRole;
-import com.yan.gant.model.PMProjectRresource;
+import com.yan.gant.model.PMProjectResource;
 import com.yan.gant.model.PMTask;
+import com.yan.gant.service.PMProjectService;
 import com.yan.gant.vo.PMProjectVo;
 import com.yan.gant.vo.PMRoleVo;
-import com.yan.gant.vo.PMRresourceVo;
+import com.yan.gant.vo.PMResourceVo;
 import com.yan.gant.vo.PMTaskVo;
 
 @Controller
@@ -24,6 +25,9 @@ public class GantController {
 
 	@Autowired
 	private PMProjectMongoDaoUtil pmProjectMongoDaoUtil;
+	
+	@Autowired
+	private PMProjectService pmProjectService;
 	
     @RequestMapping("/getProject")
     @ResponseBody
@@ -61,8 +65,8 @@ public class GantController {
     	project.setSelectedRow(2);
     	project.setDeletedTaskIds(new ArrayList<>(0));
     	
-    	List<PMRresourceVo> resources = new ArrayList<>();
-    	PMRresourceVo resource1 = new PMRresourceVo();
+    	List<PMResourceVo> resources = new ArrayList<>();
+    	PMResourceVo resource1 = new PMResourceVo();
     	resource1.setId("tmp_1");
     	resource1.setName("Resource 1");
     	resources.add(resource1);
@@ -85,12 +89,12 @@ public class GantController {
     
     @RequestMapping("/saveProject")
     @ResponseBody
-    public PMProject saveProject(){
-    	PMProject project = null;
+    public PMProjectVo saveProject(){
+    	PMProjectVo project = null;
     	
-    	project = new PMProject();
-    	List<PMTask> tasks = new ArrayList<>();
-    	PMTask task1 = new PMTask();
+    	project = new PMProjectVo();
+    	List<PMTaskVo> tasks = new ArrayList<>();
+    	PMTaskVo task1 = new PMTaskVo();
     	//task1.setId("-1");
     	task1.setName("Gantt editor");
     	task1.setProgress(0);
@@ -119,15 +123,15 @@ public class GantController {
     	project.setSelectedRow(2);
     	project.setDeletedTaskIds(new ArrayList<>(0));
     	
-    	List<PMProjectRresource> resources = new ArrayList<>();
-    	PMProjectRresource resource1 = new PMProjectRresource();
+    	List<PMResourceVo> resources = new ArrayList<>();
+    	PMResourceVo resource1 = new PMResourceVo();
     	//resource1.setId("tmp_1");
     	resource1.setName("Resource 1");
     	resources.add(resource1);
     	project.setResources(resources);
     	
-    	List<PMProjectRole> roles = new ArrayList<>();
-    	PMProjectRole role1 = new PMProjectRole();
+    	List<PMRoleVo> roles = new ArrayList<>();
+    	PMRoleVo role1 = new PMRoleVo();
     	//role1.setId("tmp_1");
     	role1.setName("Project Manager");
     	roles.add(role1);
@@ -138,7 +142,7 @@ public class GantController {
         project.setCanWriteOnParent(true);
         project.setCanAdd(true);
     	
-        pmProjectMongoDaoUtil.insertPMProject(project);
+        pmProjectService.savePMProject(project);
         
         return project;
     }

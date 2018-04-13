@@ -12,9 +12,12 @@ import org.springframework.stereotype.Repository;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.bulk.BulkWriteResult;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.InsertOneModel;
+import com.mongodb.client.model.WriteModel;
 import com.yan.common.mongodb.MongoDBConfig;
 import com.yan.common.util.SchameDocumentUtil;
 import com.yan.gant.model.PMProjectRole;
@@ -58,6 +61,33 @@ public class PMProjectRoleMongoDaoUtil {
 		}
 		mongoClient.close();
 		return id;
+	}
+	
+	public void insertPMProjectRoleList(List<PMProjectRole> pmProjectRoles){
+
+		if(pmProjectRoles != null && pmProjectRoles.size() > 0) {
+			//To connect to a single MongoDB instance:
+			//You can explicitly specify the hostname and the port:
+			MongoCredential credential = MongoCredential.createCredential(dataSource.getUser(), dataSource.getDbUserDefined(), dataSource.getPassword().toCharArray());
+			MongoClient mongoClient = new MongoClient(new ServerAddress(dataSource.getIp(), dataSource.getPort()),
+					Arrays.asList(credential));
+			//Access a Database
+			MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
+			
+			//Access a Collection
+			MongoCollection<Document> collection = database.getCollection("PMProjectRole");
+			
+			//Create a Document
+			// bulk operations
+			List<WriteModel<Document>> models = new ArrayList<>();
+			for(PMProjectRole pmProjectRole : pmProjectRoles) {
+				Document doc = (Document)SchameDocumentUtil.schameToDocument(pmProjectRole, PMProjectRole.class);
+				models.add(new InsertOneModel<>(doc));
+			}
+			
+			BulkWriteResult result = collection.bulkWrite(models);
+			mongoClient.close();
+		}
 	}
 	
 	public PMProjectRole findPMProjectRoleById(String id) {

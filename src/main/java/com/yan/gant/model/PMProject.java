@@ -16,7 +16,7 @@ public class PMProject implements Serializable{
 	
 	private List<PMTask> tasks;
 	
-	private List<PMProjectRresource> resources;
+	private List<PMProjectResource> resources;
 	
 	private List<PMProjectRole> roles;
 	
@@ -44,10 +44,10 @@ public class PMProject implements Serializable{
 	public void setTasks(List<PMTask> tasks) {
 		this.tasks = tasks;
 	}
-	public List<PMProjectRresource> getResources() {
+	public List<PMProjectResource> getResources() {
 		return resources;
 	}
-	public void setResources(List<PMProjectRresource> resources) {
+	public void setResources(List<PMProjectResource> resources) {
 		this.resources = resources;
 	}
 	public List<PMProjectRole> getRoles() {

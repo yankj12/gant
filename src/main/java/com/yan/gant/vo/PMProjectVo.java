@@ -11,7 +11,7 @@ public class PMProjectVo implements Serializable{
 	
 	private List<PMTaskVo> tasks;
 	
-	private List<PMRresourceVo> resources;
+	private List<PMResourceVo> resources;
 	
 	private List<PMRoleVo> roles;
 	
@@ -39,10 +39,10 @@ public class PMProjectVo implements Serializable{
 	public void setTasks(List<PMTaskVo> tasks) {
 		this.tasks = tasks;
 	}
-	public List<PMRresourceVo> getResources() {
+	public List<PMResourceVo> getResources() {
 		return resources;
 	}
-	public void setResources(List<PMRresourceVo> resources) {
+	public void setResources(List<PMResourceVo> resources) {
 		this.resources = resources;
 	}
 	public List<PMRoleVo> getRoles() {

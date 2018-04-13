@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Yan
  *
  */
-public class PMProjectRresource implements Serializable{
+public class PMProjectResource implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

@@ -2,7 +2,7 @@ package com.yan.gant.vo;
 
 import java.io.Serializable;
 
-public class PMRresourceVo implements Serializable{
+public class PMResourceVo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
