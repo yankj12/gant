@@ -3,6 +3,11 @@ package com.yan.gant.model;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 描述项目信息
+ * @author Yan
+ *
+ */
 public class PMProject implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -11,9 +16,9 @@ public class PMProject implements Serializable{
 	
 	private List<PMTask> tasks;
 	
-	private List<PMRresource> resources;
+	private List<PMProjectRresource> resources;
 	
-	private List<PMRole> roles;
+	private List<PMProjectRole> roles;
 	
 	private Integer selectedRow;
 	private List<String> deletedTaskIds;
@@ -39,16 +44,16 @@ public class PMProject implements Serializable{
 	public void setTasks(List<PMTask> tasks) {
 		this.tasks = tasks;
 	}
-	public List<PMRresource> getResources() {
+	public List<PMProjectRresource> getResources() {
 		return resources;
 	}
-	public void setResources(List<PMRresource> resources) {
+	public void setResources(List<PMProjectRresource> resources) {
 		this.resources = resources;
 	}
-	public List<PMRole> getRoles() {
+	public List<PMProjectRole> getRoles() {
 		return roles;
 	}
-	public void setRoles(List<PMRole> roles) {
+	public void setRoles(List<PMProjectRole> roles) {
 		this.roles = roles;
 	}
 	public Integer getSelectedRow() {

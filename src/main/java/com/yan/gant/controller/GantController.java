@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yan.gant.dao.PMProjectMongoDaoUtil;
 import com.yan.gant.model.PMProject;
-import com.yan.gant.model.PMRole;
-import com.yan.gant.model.PMRresource;
+import com.yan.gant.model.PMProjectRole;
+import com.yan.gant.model.PMProjectRresource;
 import com.yan.gant.model.PMTask;
 import com.yan.gant.vo.PMProjectVo;
 import com.yan.gant.vo.PMRoleVo;
@@ -119,15 +119,15 @@ public class GantController {
     	project.setSelectedRow(2);
     	project.setDeletedTaskIds(new ArrayList<>(0));
     	
-    	List<PMRresource> resources = new ArrayList<>();
-    	PMRresource resource1 = new PMRresource();
+    	List<PMProjectRresource> resources = new ArrayList<>();
+    	PMProjectRresource resource1 = new PMProjectRresource();
     	//resource1.setId("tmp_1");
     	resource1.setName("Resource 1");
     	resources.add(resource1);
     	project.setResources(resources);
     	
-    	List<PMRole> roles = new ArrayList<>();
-    	PMRole role1 = new PMRole();
+    	List<PMProjectRole> roles = new ArrayList<>();
+    	PMProjectRole role1 = new PMProjectRole();
     	//role1.setId("tmp_1");
     	role1.setName("Project Manager");
     	roles.add(role1);

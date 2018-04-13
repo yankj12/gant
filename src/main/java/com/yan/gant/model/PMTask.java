@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 描述项目中都有哪些任务
+ * @author Yan
+ *
+ */
 public class PMTask implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -28,6 +33,9 @@ public class PMTask implements Serializable{
 	private boolean collapsed;
 	private List<String> assigs;
 	private boolean hasChild;
+	
+	private String projectId;
+	
 	public String getId() {
 		return id;
 	}
@@ -153,6 +161,12 @@ public class PMTask implements Serializable{
 	}
 	public void setHasChild(boolean hasChild) {
 		this.hasChild = hasChild;
+	}
+	public String getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 	
 }

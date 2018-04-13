@@ -17,10 +17,10 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.yan.common.mongodb.MongoDBConfig;
 import com.yan.common.util.SchameDocumentUtil;
-import com.yan.gant.model.PMRole;
+import com.yan.gant.model.PMProjectRresource;
 
 @Repository
-public class PMRoleMongoDaoUtil {
+public class PMProjectRresourceMongoDaoUtil {
 
 	@Autowired
 	private MongoDBConfig dataSource;
@@ -33,7 +33,7 @@ public class PMRoleMongoDaoUtil {
 		this.dataSource = dataSource;
 	}
 	
-	public String insertPMRole(PMRole pmRole){
+	public String insertPMProjectRresource(PMProjectRresource pmProjectRresource){
 
 		//To connect to a single MongoDB instance:
 		//You can explicitly specify the hostname and the port:
@@ -44,10 +44,10 @@ public class PMRoleMongoDaoUtil {
 		MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
 		
 		//Access a Collection
-		MongoCollection<Document> collection = database.getCollection("PMRole");
+		MongoCollection<Document> collection = database.getCollection("PMProjectRresource");
 		
 		//Create a Document
-		Document doc = (Document)SchameDocumentUtil.schameToDocument(pmRole, PMRole.class);;
+		Document doc = (Document)SchameDocumentUtil.schameToDocument(pmProjectRresource, PMProjectRresource.class);;
 		
 		//Insert a Document
 		collection.insertOne(doc);
@@ -60,8 +60,8 @@ public class PMRoleMongoDaoUtil {
 		return id;
 	}
 	
-	public PMRole findPMRoleById(String id) {
-		PMRole pmRole = null;
+	public PMProjectRresource findPMProjectRresourceById(String id) {
+		PMProjectRresource pmProjectRresource = null;
 		if(id!= null && !"".equals(id.trim())) {
 			//To connect to a single MongoDB instance:
 			//You can explicitly specify the hostname and the port:
@@ -72,19 +72,19 @@ public class PMRoleMongoDaoUtil {
 			MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
 			
 			//Access a Collection
-			MongoCollection<Document> collection = database.getCollection("PMRole");
+			MongoCollection<Document> collection = database.getCollection("PMProjectRresource");
 			
 			List<Document> docs = collection.find(Filters.eq("_id", new ObjectId(id))).into(new ArrayList<Document>());
 			if(docs != null && docs.size() > 0) {
-				pmRole = (PMRole)SchameDocumentUtil.documentToSchame(docs.get(0), PMRole.class);
+				pmProjectRresource = (PMProjectRresource)SchameDocumentUtil.documentToSchame(docs.get(0), PMProjectRresource.class);
 			}
 			mongoClient.close();
 		}
 		
-		return pmRole;
+		return pmProjectRresource;
 	}
 	
-	public void updatePMRole(PMRole pmRole){
+	public void updatePMProjectRresource(PMProjectRresource pmProjectRresource){
 		//To connect to a single MongoDB instance:
 	    //You can explicitly specify the hostname and the port:
 		MongoCredential credential = MongoCredential.createCredential(dataSource.getUser(), dataSource.getDbUserDefined(), dataSource.getPassword().toCharArray());
@@ -94,11 +94,11 @@ public class PMRoleMongoDaoUtil {
 		MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
 		
 		//Access a Collection
-		MongoCollection<Document> collection = database.getCollection("PMRole");
+		MongoCollection<Document> collection = database.getCollection("PMProjectRresource");
 		
 		
 		//Create a Document
-		 Document doc = (Document)SchameDocumentUtil.schameToDocument(pmRole, PMRole.class);
+		 Document doc = (Document)SchameDocumentUtil.schameToDocument(pmProjectRresource, PMProjectRresource.class);
 		 
 		 //Update a Document
 		 collection.updateOne(Filters.eq("_id", doc.get("_id")), new Document("$set", doc));

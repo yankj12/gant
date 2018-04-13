@@ -2,7 +2,12 @@ package com.yan.gant.model;
 
 import java.io.Serializable;
 
-public class PMRole implements Serializable{
+/**
+ * 描述项目中都有哪些角色
+ * @author Yan
+ *
+ */
+public class PMProjectRole implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -10,6 +15,8 @@ public class PMRole implements Serializable{
 	
 	private String name;
 
+	private String projectId;
+	
 	public String getId() {
 		return id;
 	}
@@ -24,6 +31,14 @@ public class PMRole implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 	
 }
