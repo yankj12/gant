@@ -113,6 +113,34 @@ public class PMTaskMongoDaoUtil {
 		return pmTask;
 	}
 	
+	public List<PMTask> findPMTaskListByProjectId(String projectId) {
+		List<PMTask> pmTasks = null;
+		
+		if(projectId!= null && !"".equals(projectId.trim())) {
+			pmTasks = new ArrayList<>();
+			
+			//To connect to a single MongoDB instance:
+			//You can explicitly specify the hostname and the port:
+			MongoCredential credential = MongoCredential.createCredential(dataSource.getUser(), dataSource.getDbUserDefined(), dataSource.getPassword().toCharArray());
+			MongoClient mongoClient = new MongoClient(new ServerAddress(dataSource.getIp(), dataSource.getPort()),
+			                                         Arrays.asList(credential));
+			//Access a Database
+			MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
+			
+			//Access a Collection
+			MongoCollection<Document> collection = database.getCollection("PMTask");
+			
+			List<Document> docs = collection.find(Filters.eq("projectId", projectId)).into(new ArrayList<Document>());
+			if(docs != null && docs.size() > 0) {
+				PMTask pmTask = (PMTask)SchameDocumentUtil.documentToSchame(docs.get(0), PMTask.class);
+				pmTasks.add(pmTask);
+			}
+			mongoClient.close();
+		}
+		
+		return pmTasks;
+	}
+	
 	public void updatePMTask(PMTask pmTask){
 		//To connect to a single MongoDB instance:
 	    //You can explicitly specify the hostname and the port:

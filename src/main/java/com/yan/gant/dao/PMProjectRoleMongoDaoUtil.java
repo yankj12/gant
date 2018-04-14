@@ -114,6 +114,36 @@ public class PMProjectRoleMongoDaoUtil {
 		return pmProjectRole;
 	}
 	
+	public List<PMProjectRole> findPMProjectRoleListByProjectId(String projectId) {
+		List<PMProjectRole> pmProjectRoles = null;
+		
+		if(projectId!= null && !"".equals(projectId.trim())) {
+			pmProjectRoles = new ArrayList<>();
+			
+			//To connect to a single MongoDB instance:
+			//You can explicitly specify the hostname and the port:
+			MongoCredential credential = MongoCredential.createCredential(dataSource.getUser(), dataSource.getDbUserDefined(), dataSource.getPassword().toCharArray());
+			MongoClient mongoClient = new MongoClient(new ServerAddress(dataSource.getIp(), dataSource.getPort()),
+			                                         Arrays.asList(credential));
+			//Access a Database
+			MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
+			
+			//Access a Collection
+			MongoCollection<Document> collection = database.getCollection("PMProjectRole");
+			
+			List<Document> docs = collection.find(Filters.eq("projectId", projectId)).into(new ArrayList<Document>());
+			if(docs != null && docs.size() > 0) {
+				for(Document doc : docs) {
+					PMProjectRole pmProjectRole = (PMProjectRole)SchameDocumentUtil.documentToSchame(doc, PMProjectRole.class);
+					pmProjectRoles.add(pmProjectRole);
+				}
+			}
+			mongoClient.close();
+		}
+		
+		return pmProjectRoles;
+	}
+	
 	public void updatePMProjectRole(PMProjectRole pmProjectRole){
 		//To connect to a single MongoDB instance:
 	    //You can explicitly specify the hostname and the port:

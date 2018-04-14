@@ -113,6 +113,34 @@ public class PMTaskResourceMongoDaoUtil {
 		return pmTaskResource;
 	}
 	
+	public List<PMTaskResource> findPMTaskResourceListByTaskId(String taskId) {
+		List<PMTaskResource> pmTaskResources = null;
+		
+		if(taskId!= null && !"".equals(taskId.trim())) {
+			pmTaskResources = new ArrayList<>();
+			
+			//To connect to a single MongoDB instance:
+			//You can explicitly specify the hostname and the port:
+			MongoCredential credential = MongoCredential.createCredential(dataSource.getUser(), dataSource.getDbUserDefined(), dataSource.getPassword().toCharArray());
+			MongoClient mongoClient = new MongoClient(new ServerAddress(dataSource.getIp(), dataSource.getPort()),
+			                                         Arrays.asList(credential));
+			//Access a Database
+			MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
+			
+			//Access a Collection
+			MongoCollection<Document> collection = database.getCollection("PMTaskResource");
+			
+			List<Document> docs = collection.find(Filters.eq("taskId", taskId)).into(new ArrayList<Document>());
+			if(docs != null && docs.size() > 0) {
+				PMTaskResource pmTaskResource = (PMTaskResource)SchameDocumentUtil.documentToSchame(docs.get(0), PMTaskResource.class);
+				pmTaskResources.add(pmTaskResource);
+			}
+			mongoClient.close();
+		}
+		
+		return pmTaskResources;
+	}
+	
 	public void updatePMTaskResource(PMTaskResource pmTaskResource){
 		//To connect to a single MongoDB instance:
 	    //You can explicitly specify the hostname and the port:

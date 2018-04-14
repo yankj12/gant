@@ -114,6 +114,36 @@ public class PMProjectResourceMongoDaoUtil {
 		return pmProjectResource;
 	}
 	
+	public List<PMProjectResource> findPMProjectResourceListByProjectId(String projectId) {
+		List<PMProjectResource> pmProjectResources = null;
+		
+		if(projectId!= null && !"".equals(projectId.trim())) {
+			pmProjectResources = new ArrayList<>();
+			
+			//To connect to a single MongoDB instance:
+			//You can explicitly specify the hostname and the port:
+			MongoCredential credential = MongoCredential.createCredential(dataSource.getUser(), dataSource.getDbUserDefined(), dataSource.getPassword().toCharArray());
+			MongoClient mongoClient = new MongoClient(new ServerAddress(dataSource.getIp(), dataSource.getPort()),
+			                                         Arrays.asList(credential));
+			//Access a Database
+			MongoDatabase database = mongoClient.getDatabase(dataSource.getDatabase());
+			
+			//Access a Collection
+			MongoCollection<Document> collection = database.getCollection("PMProjectResource");
+			
+			List<Document> docs = collection.find(Filters.eq("projectId", projectId)).into(new ArrayList<Document>());
+			if(docs != null && docs.size() > 0) {
+				for(Document doc : docs) {
+					PMProjectResource pmProjectResource = (PMProjectResource)SchameDocumentUtil.documentToSchame(doc, PMProjectResource.class);
+					pmProjectResources.add(pmProjectResource);
+				}
+			}
+			mongoClient.close();
+		}
+		
+		return pmProjectResources;
+	}
+	
 	public void updatePMProjectResource(PMProjectResource pmProjectResource){
 		//To connect to a single MongoDB instance:
 	    //You can explicitly specify the hostname and the port:

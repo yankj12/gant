@@ -82,7 +82,60 @@ public class PMProjectService {
 	
 	public PMProjectVo findPmProject(String projectId){
 		
-		return null;
+		
+		//TODO 根据projectId查找 PMProject
+		PMProject pmProject = pmProjectMongoDaoUtil.findPMProjectById(projectId);
+		
+		//TODO 组装成vo
+		PMProjectVo pmProjectVo = null;
+		if(pmProject != null) {
+			//TODO 根据projectId查找 PMProjectResource
+			List<PMProjectResource> pmProjectResources = pmProjectResourceMongoDaoUtil.findPMProjectResourceListByProjectId(projectId);
+			
+			//TODO 根据projectId查找 PMProjectRole
+			List<PMProjectRole> pmProjectRoles = pmProjectRoleMongoDaoUtil.findPMProjectRoleListByProjectId(projectId);
+			
+			//TODO 根据projectId查找 PMTask
+			List<PMTask> pmTasks = pmTaskMongoDaoUtil.findPMTaskListByProjectId(projectId);
+			
+			pmProjectVo = (PMProjectVo)SchameCopyUtil.simpleCopy(pmProject, PMProjectVo.class);
+			
+			// 处理资源
+			List<PMResourceVo> pmResourceVos = null;
+			if(pmProjectVo != null && pmProjectResources != null && pmProjectResources.size() > 0) {
+				pmResourceVos = new ArrayList<>();
+				for(PMProjectResource pmProjectResource : pmProjectResources) {
+					PMResourceVo pmResourceVo = (PMResourceVo)SchameCopyUtil.simpleCopy(pmProjectResource, PMResourceVo.class);
+					pmResourceVos.add(pmResourceVo);
+				}
+			}
+			pmProjectVo.setResources(pmResourceVos);
+			
+			// 处理角色
+			List<PMRoleVo> pmRoleVos = null;
+			if(pmProjectVo != null && pmProjectRoles != null && pmProjectRoles.size() > 0) {
+				pmRoleVos = new ArrayList<>();
+				for(PMProjectRole pmProjectRole : pmProjectRoles) {
+					PMRoleVo pmRoleVo = (PMRoleVo)SchameCopyUtil.simpleCopy(pmProjectRole, PMRoleVo.class);
+					pmRoleVos.add(pmRoleVo);
+				}
+			}
+			pmProjectVo.setRoles(pmRoleVos);
+			
+			// 处理任务
+			List<PMTaskVo> pmTaskVos = null;
+			if(pmProjectVo != null && pmTasks != null && pmTasks.size() >0) {
+				pmTaskVos = new ArrayList<>();
+				for(PMTask pmTask : pmTasks) {
+					PMTaskVo pmTaskVo = (PMTaskVo)SchameCopyUtil.simpleCopy(pmTask, PMTaskVo.class);
+					pmTaskVos.add(pmTaskVo);
+				}
+			}
+			pmProjectVo.setTasks(pmTaskVos);
+			
+		}
+		
+		return pmProjectVo;
 	}
 	
 	
