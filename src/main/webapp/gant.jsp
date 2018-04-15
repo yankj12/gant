@@ -98,13 +98,48 @@ $(function() {
   //in order to force compute the best-fitting zoom level
   delete ge.gantt.zoom;
 
-  var project=loadFromLocalStorage();
-
-  if (!project.canWrite)
-    $(".ganttButtonBar button.requireWrite").attr("disabled","true");
-
-  ge.loadProject(project);
-  ge.checkpoint(); //empty the undo stack
+  // load project data
+  ret= null;
+  	
+  	var projectId = '';
+  	
+  	if(projectId != null && projectId != ''){
+		$.ajax({
+			type:"GET",
+			async: true,//使用同步的方式,true为异步方式
+			url:"${pageContext.request.contextPath}/getProject?projectId=" + projectId,
+			success : function(data){
+				console.log(data);
+				var ret = data;
+				if(ret != null){
+					//actualize data
+					var offset=new Date().getTime()-ret.tasks[0].start;
+					for (var i=0;i<ret.tasks.length;i++) {
+						ret.tasks[i].start = ret.tasks[i].start + offset;
+					}
+					
+					var project = ret;
+					if (!project.canWrite){
+						$(".ganttButtonBar button.requireWrite").attr("disabled","true");
+					}
+					ge.loadProject(project);
+					ge.checkpoint(); //empty the undo stack
+				}else{
+					//如果查出来的project数据为null，初始化一个project
+					console.log("查询不到对应project，初始化一个project");
+					newProject();
+				}
+			},
+			fail:function(){
+				//code here...
+				console.log("something wrong");
+			}
+		});
+  	}else{
+  		//TODO 初始化一个project需要完善
+  		newProject();
+  	}
+	
 });
 
 
