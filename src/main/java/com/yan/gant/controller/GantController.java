@@ -29,8 +29,10 @@ public class GantController {
 	@ResponseBody
     @RequestMapping("/getProject")
     public PMProjectVo getProject(@RequestParam(value="projectId") String projectId){
-    	PMProjectVo project = pmProjectService.findPmProject(projectId);
-    	    	
+    	PMProjectVo project = null;
+    	if(projectId != null && !"".equals(projectId.trim())) {
+    		project = pmProjectService.findPmProject(projectId);
+    	}
         return project;
     }
     
