@@ -34,8 +34,13 @@ public class SchameCopyUtil {
 								
 								//向target类中set值
 								String setterMethodName = "set" + methodName.substring(3);
-								Method targetSetterMethod = targetClazz.getMethod(setterMethodName, returnType);
-								targetSetterMethod.invoke(target, value);
+								try {
+									Method targetSetterMethod = targetClazz.getMethod(setterMethodName, returnType);
+									targetSetterMethod.invoke(target, value);
+								} catch (NoSuchMethodException nsme) {
+									//nsme.printStackTrace();
+									System.out.println("NoSuchMethodException : " + nsme.getMessage());
+								}
 							}
 						}
 					}
