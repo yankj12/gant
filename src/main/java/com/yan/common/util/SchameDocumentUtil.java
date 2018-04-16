@@ -24,8 +24,15 @@ public class SchameDocumentUtil {
 			for(Method method : methods){
 				String methodName = method.getName();
 				//遍历get方法
-				if(methodName.startsWith("get")){
-					String fieldName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
+				if(methodName.startsWith("get") || methodName.startsWith("is")){
+					String fieldName = null;
+					
+					if(methodName.startsWith("get")) {
+						fieldName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
+					}else if(methodName.startsWith("is")) {
+						fieldName = methodName.substring(2, 3).toLowerCase() + methodName.substring(3);
+					}
+					
 					Class returnType = method.getReturnType();
 					//这个是用来处理带泛型的的类型
 					Type type = method.getGenericReturnType();
@@ -139,12 +146,23 @@ public class SchameDocumentUtil {
 				for(Method method : methods){
 					String methodName = method.getName();
 					//遍历get方法
-					if(methodName.startsWith("get")){
-						String fieldName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
+					if(methodName.startsWith("get") || methodName.startsWith("is")){
+						String fieldName = null;
+						
+						if(methodName.startsWith("get")) {
+							fieldName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
+						}else if(methodName.startsWith("is")) {
+							fieldName = methodName.substring(2, 3).toLowerCase() + methodName.substring(3);
+						}
 						
 						Class returnType = method.getReturnType();
 						
-						String setterMethodName = "set" + methodName.substring(3);
+						String setterMethodName = null;
+						if(methodName.startsWith("get")) {
+							setterMethodName = "set" + methodName.substring(3);
+						}else if(methodName.startsWith("is")) {
+							setterMethodName = "set" + methodName.substring(2);
+						}
 						
 						try {
 							Method setterMethod = clazz.getMethod(setterMethodName, returnType);
