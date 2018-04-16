@@ -49,17 +49,17 @@ public class PMProjectService {
 		
 		//TODO 保存 PMProject 并生成id
 		String projectId = pmProjectMongoDaoUtil.insertPMProject(pmProject);
-		if(pmProjectResources != null && pmProjectResources.size() > 0){
+		if(pmProjectResources != null){
 			for(PMProjectResource resource: pmProjectResources){
 				resource.setProjectId(projectId);
 			}
 		}
-		if(pmProjectRoles != null && pmProjectRoles.size() > 0){
+		if(pmProjectRoles != null){
 			for(PMProjectRole role: pmProjectRoles){
 				role.setProjectId(projectId);
 			}
 		}
-		if(pmTasks != null && pmTasks.size() > 0){
+		if(pmTasks != null){
 			for(PMTask task: pmTasks){
 				task.setProjectId(projectId);
 			}
@@ -102,7 +102,7 @@ public class PMProjectService {
 			
 			// 处理资源
 			List<PMResourceVo> pmResourceVos = null;
-			if(pmProjectVo != null && pmProjectResources != null && pmProjectResources.size() > 0) {
+			if(pmProjectVo != null && pmProjectResources != null) {
 				pmResourceVos = new ArrayList<>();
 				for(PMProjectResource pmProjectResource : pmProjectResources) {
 					PMResourceVo pmResourceVo = (PMResourceVo)SchameCopyUtil.simpleCopy(pmProjectResource, PMResourceVo.class);
@@ -113,7 +113,7 @@ public class PMProjectService {
 			
 			// 处理角色
 			List<PMRoleVo> pmRoleVos = null;
-			if(pmProjectVo != null && pmProjectRoles != null && pmProjectRoles.size() > 0) {
+			if(pmProjectVo != null && pmProjectRoles != null) {
 				pmRoleVos = new ArrayList<>();
 				for(PMProjectRole pmProjectRole : pmProjectRoles) {
 					PMRoleVo pmRoleVo = (PMRoleVo)SchameCopyUtil.simpleCopy(pmProjectRole, PMRoleVo.class);
@@ -124,7 +124,7 @@ public class PMProjectService {
 			
 			// 处理任务
 			List<PMTaskVo> pmTaskVos = null;
-			if(pmProjectVo != null && pmTasks != null && pmTasks.size() >0) {
+			if(pmProjectVo != null && pmTasks != null) {
 				pmTaskVos = new ArrayList<>();
 				for(PMTask pmTask : pmTasks) {
 					PMTaskVo pmTaskVo = (PMTaskVo)SchameCopyUtil.simpleCopy(pmTask, PMTaskVo.class);
@@ -156,7 +156,7 @@ public class PMProjectService {
 	 */
 	private List<PMProjectResource> assemblePMProjectResources(PMProjectVo pmProjectVo){
 		List<PMProjectResource> pmProjectResources = null;
-		if(pmProjectVo != null && pmProjectVo.getResources() != null && pmProjectVo.getResources().size() > 0) {
+		if(pmProjectVo != null && pmProjectVo.getResources() != null) {
 			pmProjectResources = new ArrayList<>();
 			List<PMResourceVo> pmResourceVos = pmProjectVo.getResources();
 			for(PMResourceVo pmResourceVo : pmResourceVos) {
@@ -174,7 +174,7 @@ public class PMProjectService {
 	 */
 	private List<PMProjectRole> assemblePMProjectRoles(PMProjectVo pmProjectVo){
 		List<PMProjectRole> pmProjectRoles = null;
-		if(pmProjectVo != null && pmProjectVo.getRoles() != null && pmProjectVo.getRoles().size() > 0) {
+		if(pmProjectVo != null && pmProjectVo.getRoles() != null) {
 			pmProjectRoles = new ArrayList<>();
 			List<PMRoleVo> pmRoleVos = pmProjectVo.getRoles();
 			for(PMRoleVo pmRoleVo : pmRoleVos) {
@@ -192,7 +192,7 @@ public class PMProjectService {
 	 */
 	private List<PMTask> assemblePMTasks(PMProjectVo pmProjectVo){
 		List<PMTask> pmTasks = null;
-		if(pmProjectVo != null && pmProjectVo.getTasks() != null && pmProjectVo.getTasks().size() >0) {
+		if(pmProjectVo != null && pmProjectVo.getTasks() != null) {
 			pmTasks = new ArrayList<>();
 			List<PMTaskVo> pmTaskVos = pmProjectVo.getTasks();
 			for(PMTaskVo pmTaskVo : pmTaskVos) {
