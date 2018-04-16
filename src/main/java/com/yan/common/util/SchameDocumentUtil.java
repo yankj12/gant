@@ -174,6 +174,7 @@ public class SchameDocumentUtil {
 								if(value != null){
 									value = value.toString();
 								}
+								setterMethod.invoke(object, value);
 							}else{
 								value = document.get(fieldName);
 								if(value != null){
@@ -236,14 +237,17 @@ public class SchameDocumentUtil {
 //											}
 //										}
 									}
+									
+									// 只有value非null的时候，才有必要调用set方法
+									if(value instanceof Document){
+										value = documentToSchame((Document)value, returnType);
+									}
+									
+									setterMethod.invoke(object, value);
 								}
+								
 							}
 							
-							if(value instanceof Document){
-								value = documentToSchame((Document)value, returnType);
-							}
-							
-							setterMethod.invoke(object, value);
 							
 						} catch (Exception e) {
 							e.printStackTrace();
