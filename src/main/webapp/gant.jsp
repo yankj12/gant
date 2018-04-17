@@ -324,6 +324,8 @@ function loadFromLocalStorage() {
 
 function saveInLocalStorage() {
   var prj = ge.saveProject();
+  console.log(prj);
+  //TODO 异步保存数据，成功后将project数据回写到ge
   if (localStorage) {
     localStorage.setObject("teamworkGantDemo", prj);
   }
@@ -385,11 +387,13 @@ function editResources(){
       if (name && name!="")
         newRes.push (new Resource("tmp_"+new Date().getTime()+"_"+cnt,name));
     });
-
+    
+	console.log(newRes);
     ge.resources=newRes;
 
     closeBlackPopup();
     ge.redraw();
+    //TODO 异步保存resource，保存成功后，回写带了id的resources到ge.resources
   });
 
 
